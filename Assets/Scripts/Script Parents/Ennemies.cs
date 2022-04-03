@@ -11,6 +11,10 @@ public class Ennemies : MonoBehaviour, IDamageable
     protected Animator animator;
     //valeur pour la vie de l'ennemi
     protected int pvEnnemi = 4;
+    // Le navMesh pour l'ennemi
+    NavMeshAgent agentE;
+    // Le target pour la destination
+    public Transform targetCastle;
     // Variable qui va dire au Gamemanager que l'ennemi est mort
     protected bool Mort = false;
     // Variable qui dit à l'ennemi est touché Je vais peut-être devoir le changer d'endroit
@@ -29,7 +33,7 @@ public class Ennemies : MonoBehaviour, IDamageable
         // Désactive le ragdoll
         ToggleRagdoll(false);
 
-
+        agentE.GetComponent<NavMeshAgent>();
 
     }
 
@@ -37,7 +41,8 @@ public class Ennemies : MonoBehaviour, IDamageable
     void Update()
     {
 
-
+        //Set la destination de la target
+        agentE.SetDestination(targetCastle.position);
 
         // Est vide pour l'instant
 
