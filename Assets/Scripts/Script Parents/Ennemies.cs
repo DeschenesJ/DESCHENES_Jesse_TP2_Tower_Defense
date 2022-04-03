@@ -1,40 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.AI;
 
 public class Ennemies : MonoBehaviour, IDamageable
 {
     // valeur de référence pour les rigid bodies
-    Rigidbody[] rbEnnemi;
+    protected Rigidbody[] rbEnnemi;
     // valeur de référence pour l'animator
-    Animator animator;
-
+    protected Animator animator;
+    // valeur pour la vie de l'ennemi
+    protected int pvEnnemi = 4;
 
     // Valeurs complètement inutiles, ne me sert que pour planifier comment je vais faire mon script
-    float x;
-    float y;
-    float z;
+    
     // ------------------
 
     // Start is called before the first frame update
     void Start()
     {
-
         // va chercher les références des rigid bodies de l'ennemi
         rbEnnemi = GetComponentsInChildren<Rigidbody>();
         // va chercher la référence de l'animator de l'ennemi
         animator = GetComponent<Animator>();
 
         // Désactive le ragdoll
-        ToggleRagodll(false);
+        ToggleRagdoll(false);
 
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
+         
+        
+        
+        
         // Est vide pour l'instant
 
     }
@@ -43,11 +45,12 @@ public class Ennemies : MonoBehaviour, IDamageable
     public void TakeDamage()
     {
         // Va déterminer si l'ennemi se prend des dégâts ou s'il meurt
-        if ( x > 1)
+        if (pvEnnemi > 0)
         {
 
             // lorsque l'ennemi est touché, il perd un pv
-
+            pvEnnemi--;
+            // Audio cri ennemi
             
         }
         else
@@ -58,7 +61,7 @@ public class Ennemies : MonoBehaviour, IDamageable
     void die()
     {
         // Active le Ragdoll
-        ToggleRagodll(true);
+        ToggleRagdoll(true);
 
         // Active l'audio
 
@@ -69,7 +72,7 @@ public class Ennemies : MonoBehaviour, IDamageable
 
 
 
-    private void ToggleRagodll(bool value)
+    protected void ToggleRagdoll(bool value)
     {
         //Activer/desactiver les rigidbodies
         foreach (var r in rbEnnemi)
