@@ -9,11 +9,14 @@ public class Ennemies : MonoBehaviour, IDamageable
     protected Rigidbody[] rbEnnemi;
     // valeur de référence pour l'animator
     protected Animator animator;
-    // valeur pour la vie de l'ennemi
+    //valeur pour la vie de l'ennemi
     protected int pvEnnemi = 4;
-
+    // Variable qui va dire au Gamemanager que l'ennemi est mort
+    protected bool Mort = false;
+    // Variable qui dit à l'ennemi est touché Je vais peut-être devoir le changer d'endroit
+    protected bool degats = false;
     // Valeurs complètement inutiles, ne me sert que pour planifier comment je vais faire mon script
-    
+
     // ------------------
 
     // Start is called before the first frame update
@@ -23,27 +26,27 @@ public class Ennemies : MonoBehaviour, IDamageable
         rbEnnemi = GetComponentsInChildren<Rigidbody>();
         // va chercher la référence de l'animator de l'ennemi
         animator = GetComponent<Animator>();
-
         // Désactive le ragdoll
         ToggleRagdoll(false);
+
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-         
-        
-        
-        
+
+
+
         // Est vide pour l'instant
 
     }
 
 
-    public void TakeDamage()
+    public void TakeDamage(bool Degats)
     {
+        Degats = degats;
         // Va déterminer si l'ennemi se prend des dégâts ou s'il meurt
         if (pvEnnemi > 0)
         {
@@ -51,7 +54,7 @@ public class Ennemies : MonoBehaviour, IDamageable
             // lorsque l'ennemi est touché, il perd un pv
             pvEnnemi--;
             // Audio cri ennemi
-            
+
         }
         else
             // Lorsque l'ennemie n'a plus de PV, il meurt
@@ -83,4 +86,9 @@ public class Ennemies : MonoBehaviour, IDamageable
         //Activer/desactiver l'Animator
         animator.enabled = !value;
     }
+
+
+
+
+
 }
