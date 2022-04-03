@@ -12,15 +12,13 @@ public class Ennemies : MonoBehaviour, IDamageable
     //valeur pour la vie de l'ennemi
     protected int pvEnnemi = 4;
     // Le navMesh pour l'ennemi
-    NavMeshAgent agentE;
-    // Le target pour la destination
-    public Transform targetCastle;
+    NavMeshAgent agent;
     // Variable qui va dire au Gamemanager que l'ennemi est mort
     protected bool Mort = false;
     // Variable qui dit à l'ennemi est touché Je vais peut-être devoir le changer d'endroit
     protected bool degats = false;
-    // Valeurs complètement inutiles, ne me sert que pour planifier comment je vais faire mon script
-
+    // Valeurs de test pour la position
+    Vector3 vecDestination;
     // ------------------
 
     // Start is called before the first frame update
@@ -32,17 +30,18 @@ public class Ennemies : MonoBehaviour, IDamageable
         animator = GetComponent<Animator>();
         // Désactive le ragdoll
         ToggleRagdoll(false);
-
-        agentE.GetComponent<NavMeshAgent>();
+        vecDestination = new Vector3(15.51f, 0f, -52f);
+        // va chercher le navmesh de l'ennemi
+        agent = GetComponent<NavMeshAgent>();
 
     }
 
     // Update is called once per frame
     void Update()
     {
-
         //Set la destination de la target
-        agentE.SetDestination(targetCastle.position);
+        agent.SetDestination(vecDestination);
+
 
         // Est vide pour l'instant
 
