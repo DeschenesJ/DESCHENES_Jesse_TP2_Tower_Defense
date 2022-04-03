@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class Warrok : Ennemies
 {
     int pvEnnemi = 8;
-    
+    bool isDuplicate;
 
     
     

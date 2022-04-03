@@ -592,7 +592,7 @@ Transform:
   m_GameObject: {fileID: 1246423849390984533}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.324, y: 0.26, z: -3.01}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 1909278726183342310}
   - {fileID: 1348116172642461877}
@@ -646,7 +646,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf98c29d75e8148bba627a1f75c1b4e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetCastle: {fileID: 0}
 --- !u!195 &2129435381702533397
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -657,7 +656,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 1.7
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
