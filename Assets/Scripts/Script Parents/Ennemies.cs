@@ -1,33 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.AI;
 
 public class Ennemies : MonoBehaviour, IDamageable
 {
     // valeur de référence pour les rigid bodies
-    Rigidbody[] rbEnnemi;
+    protected Rigidbody[] rbEnnemi;
     // valeur de référence pour l'animator
-    Animator animator;
+    protected Animator animator;
+    //valeur pour la vie de l'ennemi
+    protected int pvEnnemi = 4;
+    // Le navMesh pour l'ennemi
+    protected NavMeshAgent agent;
+    // Variable qui va dire au Gamemanager que l'ennemi est mort
+    protected bool Mort = false;
+    // Variable qui dit à l'ennemi est touché Je vais peut-être devoir le changer d'endroit
+    protected bool degats = false;
+    // Valeurs de test pour la position
+    protected Vector3 vecDestination;
+    // Valeur qui va permettre de détecter l'ennemi
+    protected Collider colliderEnnemi;
 
 
-    // Valeurs complètement inutiles, ne me sert que pour planifier comment je vais faire mon script
-    float x;
-    float y;
-    float z;
+
     // ------------------
 
     // Start is called before the first frame update
     void Start()
     {
-
         // va chercher les références des rigid bodies de l'ennemi
         rbEnnemi = GetComponentsInChildren<Rigidbody>();
         // va chercher la référence de l'animator de l'ennemi
         animator = GetComponent<Animator>();
-
         // Désactive le ragdoll
-        ToggleRagodll(false);
+        ToggleRagdoll(false);
+        vecDestination = new Vector3(15.51f, 0f, -52f);
+        // va chercher le navmesh de l'ennemi
+        agent = GetComponent<NavMeshAgent>();
+        // va chercher le collider de l'ennemi
+        colliderEnnemi = GetComponent<Collider>();
 
     }
 
@@ -35,20 +47,23 @@ public class Ennemies : MonoBehaviour, IDamageable
     void Update()
     {
 
-        // Est vide pour l'instant
+        //Set la destination de la target
+        agent.SetDestination(vecDestination);
 
     }
 
 
-    public void TakeDamage()
+    public void TakeDamage(bool Degats)
     {
+        Degats = degats;
         // Va déterminer si l'ennemi se prend des dégâts ou s'il meurt
-        if ( x > 1)
+        if (pvEnnemi > 0)
         {
 
             // lorsque l'ennemi est touché, il perd un pv
+            pvEnnemi--;
+            // Audio cri ennemi
 
-            
         }
         else
             // Lorsque l'ennemie n'a plus de PV, il meurt
@@ -58,7 +73,7 @@ public class Ennemies : MonoBehaviour, IDamageable
     void die()
     {
         // Active le Ragdoll
-        ToggleRagodll(true);
+        ToggleRagdoll(true);
 
         // Active l'audio
 
@@ -69,7 +84,7 @@ public class Ennemies : MonoBehaviour, IDamageable
 
 
 
-    private void ToggleRagodll(bool value)
+    protected void ToggleRagdoll(bool value)
     {
         //Activer/desactiver les rigidbodies
         foreach (var r in rbEnnemi)
@@ -80,4 +95,9 @@ public class Ennemies : MonoBehaviour, IDamageable
         //Activer/desactiver l'Animator
         animator.enabled = !value;
     }
+
+
+
+
+
 }

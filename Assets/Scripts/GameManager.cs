@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public Transform spawnpoint;
+    
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +17,11 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void spawner()
+    { 
+    
+    
     }
 }
