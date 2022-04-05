@@ -12,13 +12,13 @@ public class Ennemies : MonoBehaviour, IDamageable
     //valeur pour la vie de l'ennemi
     protected int pvEnnemi = 4;
     // Le navMesh pour l'ennemi
-    NavMeshAgent agent;
+    protected NavMeshAgent agent;
     // Variable qui va dire au Gamemanager que l'ennemi est mort
     protected bool Mort = false;
     // Variable qui dit à l'ennemi est touché Je vais peut-être devoir le changer d'endroit
     protected bool degats = false;
     // Valeurs de test pour la position
-    Vector3 vecDestination;
+    protected Vector3 vecDestination;
     // ------------------
 
     // Start is called before the first frame update
@@ -33,17 +33,15 @@ public class Ennemies : MonoBehaviour, IDamageable
         vecDestination = new Vector3(15.51f, 0f, -52f);
         // va chercher le navmesh de l'ennemi
         agent = GetComponent<NavMeshAgent>();
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+
         //Set la destination de la target
         agent.SetDestination(vecDestination);
-
-
-        // Est vide pour l'instant
 
     }
 
