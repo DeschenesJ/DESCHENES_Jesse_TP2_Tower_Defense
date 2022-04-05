@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject spawnpoint;
+    public Transform spawnpoint;
     public GameObject ennemiS;
     public GameObject ennemiN;
     public GameObject ennemiW;
