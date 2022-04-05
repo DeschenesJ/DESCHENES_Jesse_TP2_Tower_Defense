@@ -19,6 +19,11 @@ public class Ennemies : MonoBehaviour, IDamageable
     protected bool degats = false;
     // Valeurs de test pour la position
     protected Vector3 vecDestination;
+    // Valeur qui va permettre de détecter l'ennemi
+    protected Collider colliderEnnemi;
+
+
+
     // ------------------
 
     // Start is called before the first frame update
@@ -33,7 +38,9 @@ public class Ennemies : MonoBehaviour, IDamageable
         vecDestination = new Vector3(15.51f, 0f, -52f);
         // va chercher le navmesh de l'ennemi
         agent = GetComponent<NavMeshAgent>();
-        
+        // va chercher le collider de l'ennemi
+        colliderEnnemi = GetComponent<Collider>();
+
     }
 
     // Update is called once per frame
