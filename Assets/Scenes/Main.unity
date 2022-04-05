@@ -431,6 +431,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnpoint: {fileID: 0}
+  ennemiS: {fileID: 0}
+  ennemiN: {fileID: 0}
+  ennemiW: {fileID: 0}
 --- !u!1 &406676935
 GameObject:
   m_ObjectHideFlags: 0
