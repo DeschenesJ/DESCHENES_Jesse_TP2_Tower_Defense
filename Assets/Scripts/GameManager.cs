@@ -14,12 +14,18 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         
+
+
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(Spawner());
+        //StartCoroutine(Spawner());
+
+
     }
 
     // Methode qui va faire apparaitre les ennemis
