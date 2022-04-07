@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Nightshade : Ennemies
 {
-    int pvEnnemi = 2;
+    
 
 
     // Lorsque la nightshade entre dans un box collider des shortcut
@@ -22,6 +22,11 @@ public class Nightshade : Ennemies
         // va activer l'animation de marche de la nightshade
         if (other.CompareTag("Shortcut"))
             animator.SetBool("IsFloating", false);
+    }
+
+    protected override void Setup()
+    {
+        base.pvEnnemi = 2;
     }
 
 

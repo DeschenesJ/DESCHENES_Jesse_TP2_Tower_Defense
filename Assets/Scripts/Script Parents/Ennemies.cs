@@ -10,21 +10,20 @@ public class Ennemies : MonoBehaviour, IDamageable
     // valeur de référence pour l'animator
     protected Animator animator;
     //valeur pour la vie de l'ennemi
-    protected int pvEnnemi = 4;
+    protected int pvEnnemi;
     // Le navMesh pour l'ennemi
     protected NavMeshAgent agent;
     // Variable qui va dire au Gamemanager que l'ennemi est mort
     protected bool Mort = false;
     // Variable qui dit à l'ennemi est touché Je vais peut-être devoir le changer d'endroit
     protected bool degats = false;
-    // Valeurs de test pour la position
-    protected Vector3 vecDestination;
+
+    // Valeur de destination pour les ennemies qui va être caller par le gamemanager
+    protected Transform destination;
+
     // Valeur qui va permettre de détecter l'ennemi
     protected Collider colliderEnnemi;
 
-
-
-    // ------------------
 
     // Start is called before the first frame update
     void Start()
@@ -35,23 +34,32 @@ public class Ennemies : MonoBehaviour, IDamageable
         animator = GetComponent<Animator>();
         // Désactive le ragdoll
         ToggleRagdoll(false);
-        vecDestination = new Vector3(15.51f, 0f, -52f);
-        // va chercher le navmesh de l'ennemi
-        agent = GetComponent<NavMeshAgent>();
         // va chercher le collider de l'ennemi
         colliderEnnemi = GetComponent<Collider>();
+        Setup();
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        //Set la destination de la target
-        agent.SetDestination(vecDestination);
+        
 
     }
 
+    // méthode pour la destination des ennemies qui est caller
+    public void SetTarget(Transform endDestination)
+    {
+        
+        // va chercher le navmesh de l'ennemi
+        agent = GetComponent<NavMeshAgent>();
+        
+        destination = endDestination;
+
+        agent.SetDestination(destination.position);
+
+    }
 
     public void TakeDamage(bool Degats)
     {
@@ -70,7 +78,7 @@ public class Ennemies : MonoBehaviour, IDamageable
             die();
     }
     // Ce qui ce produit lorsque l'ennemi meurt
-    void die()
+    public void die()
     {
         // Active le Ragdoll
         ToggleRagdoll(true);
@@ -94,6 +102,15 @@ public class Ennemies : MonoBehaviour, IDamageable
 
         //Activer/desactiver l'Animator
         animator.enabled = !value;
+    }
+
+    protected virtual void Setup()
+    {
+        pvEnnemi = 4;
+
+
+
+
     }
 
 
