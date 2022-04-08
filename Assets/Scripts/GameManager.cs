@@ -10,9 +10,19 @@ public class GameManager : MonoBehaviour
 
     public Transform spawnpoint;
     public Transform endPoint;
+    // Squeulette
     public GameObject ennemiS;
+    // Nightshade
     public GameObject ennemiN;
+    // Warrok
     public GameObject ennemiW;
+    // Liste qui va contenir les ennemis
+    private List<GameObject> listEnnemies = new List<GameObject>();
+
+    // Valeurs de test pour le while
+    int x;
+    bool listFull;
+    //------------------------------
 
     // va être modifié dans une coroutine qui va déterminer le nombre de round
     float spawnInterval = 5f;
@@ -22,6 +32,8 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
 
+        x = 0;
+        listFull = false;
         // Commence la coroutine pour faire apparaitre la vague
         StartCoroutine(Spawner());
 
@@ -32,25 +44,17 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         // Vérifie si un ennemi est mor ou s'il est arrivé à destination
-        EnnemiCheck();
+        if (listEnnemies != null)
+            EnnemiCheck();
+
 
     }
 
     // Methode qui va faire apparaitre les ennemis
     IEnumerator Spawner()
     {
-        while (true)
+        while (x < 3)
         {
-            // Déterminer la position des ennemies
-           // Vector3 location = spawnpoint.position;
-
-            
-
-            // Un indicateur circulaire apparaitra à cette position pour que le joueur puisse s'en éloigner
-            //Vector3 indicatorLocation = location;
-            //indicatorLocation.y = 0.03f;
-           // spawnpoint.position = indicatorLocation;
-
             // Attendre un léger interval avant de le faire spawn
             yield return new WaitForSeconds(spawnInterval);
             // Spawn des ennemis (je vais devoir faire une boucle selon la vague)            
@@ -64,7 +68,9 @@ public class GameManager : MonoBehaviour
 
             if (spawnInterval < 1f)
                 spawnInterval = 1f;
-        }
+            x++;
+        }   
+
 
     }
     void EnnemiSpawn(GameObject ennemiType)
@@ -73,12 +79,27 @@ public class GameManager : MonoBehaviour
         GameObject objEnnemi = Instantiate(ennemiType, spawnpoint.position, Quaternion.Euler(180f, 0f, 0f)).gameObject;
         // détermine la cible de l'ennemi
         objEnnemi.GetComponent<Ennemies>().SetTarget(endPoint);
-
+        listEnnemies.Add(objEnnemi);
     }
 
     void EnnemiCheck()
-    { 
-        
+    {
+        foreach (GameObject ob in listEnnemies)
+        {
+            if (ob.GetComponent<Ennemies>().isRemovable == true && ob.GetComponent<Ennemies>().reachTarget == true)
+            {
+
+
+
+            }
+            else if (ob.GetComponent<Ennemies>().isRemovable == true && ob.GetComponent<Ennemies>().reachTarget == false)
+            {
+
+
+
+            }    
+
+        }
     
     }
 

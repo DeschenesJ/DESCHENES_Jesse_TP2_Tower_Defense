@@ -15,10 +15,12 @@ public class Ennemies : MonoBehaviour, IDamageable
     protected NavMeshAgent agent;
     // Variable qui dit à l'ennemi est touché Je vais peut-être devoir le changer d'endroit
     protected bool degats = false;
+    //-----------------------------------
     // Variable qui va servir a dire au gamemanager que le préfab de l'ennemi peut être détruit
     public bool isRemovable;
     // Variable qui va indiquée au gamemanager que l'ennemi est arriver à destination
     public bool reachTarget;
+    //-----------------------------------
     // Valeur de destination pour les ennemies qui va être caller par le gamemanager
     protected Transform destination;
 
@@ -75,7 +77,7 @@ public class Ennemies : MonoBehaviour, IDamageable
 
         }
         else
-            // Lorsque l'ennemie n'a plus de PV, il meurt
+            // Lorsque l'ennemie n'a plus de PV, il meurt ou lorsqu'il est arrivé à destination, il disparait 
             endOrIsDead();
     }
     // Ce qui ce produit lorsque l'ennemi meurt
