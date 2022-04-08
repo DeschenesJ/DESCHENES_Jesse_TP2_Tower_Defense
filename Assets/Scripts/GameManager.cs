@@ -44,16 +44,18 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         // Vérifie si un ennemi est mor ou s'il est arrivé à destination
-        if (listEnnemies != null)
+        if (listEnnemies != null && listFull == true)
+        {
+            Debug.Log("liste pleine");
             EnnemiCheck();
-
+        }
 
     }
 
     // Methode qui va faire apparaitre les ennemis
     IEnumerator Spawner()
     {
-        while (x < 3)
+        while (x < 2)
         {
             // Attendre un léger interval avant de le faire spawn
             yield return new WaitForSeconds(spawnInterval);
@@ -69,8 +71,8 @@ public class GameManager : MonoBehaviour
             if (spawnInterval < 1f)
                 spawnInterval = 1f;
             x++;
-        }   
-
+        }
+        listFull = true;
 
     }
     void EnnemiSpawn(GameObject ennemiType)
@@ -84,21 +86,24 @@ public class GameManager : MonoBehaviour
 
     void EnnemiCheck()
     {
+        x = 0;
         foreach (GameObject ob in listEnnemies)
         {
             if (ob.GetComponent<Ennemies>().isRemovable == true && ob.GetComponent<Ennemies>().reachTarget == true)
             {
-
-
+                // test
+                Debug.Log("is dead");
 
             }
             else if (ob.GetComponent<Ennemies>().isRemovable == true && ob.GetComponent<Ennemies>().reachTarget == false)
             {
 
-
-
-            }    
-
+                Destroy(ob);
+                listEnnemies.Remove(ob);
+                Debug.Log("help mah");
+                break;
+            }
+            x++;
         }
     
     }

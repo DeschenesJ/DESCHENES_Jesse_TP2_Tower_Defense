@@ -579,7 +579,7 @@ GameObject:
   - component: {fileID: 1355124986303826014}
   m_Layer: 0
   m_Name: warrok
-  m_TagString: Untagged
+  m_TagString: Ennemi
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -647,6 +647,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf98c29d75e8148bba627a1f75c1b4e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRemovable: 0
+  reachTarget: 0
 --- !u!195 &2129435381702533397
 NavMeshAgent:
   m_ObjectHideFlags: 0
