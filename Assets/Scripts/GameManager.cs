@@ -17,6 +17,10 @@ public class GameManager : MonoBehaviour
     // Warrok
     public GameObject ennemiW;
 
+    int pvJoueur;
+
+    public int PvJoueur { set { value = pvJoueur = 6; } }
+
     // Valeurs de test pour le while
     int x;
     bool listFull;
@@ -29,7 +33,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         instance = this;
-
         x = 0;
         listFull = false;
         // Commence la coroutine pour faire apparaitre la vague
