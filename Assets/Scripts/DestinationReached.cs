@@ -10,12 +10,10 @@ public class DestinationReached : MonoBehaviour
     {
         if (other.CompareTag("Ennemi"))
         { 
-            other.GetComponent<Ennemies>().isRemovable = true;
+            other.GetComponent<Ennemies>();
             Destroy(other.gameObject);
             GameManager manager = FindObjectOfType<GameManager>();
             manager.PvJoueur--;
-            // pvJoueur--;
-            // Debug.Log(pvJoueur);
             Debug.Log(manager.PvJoueur);
         }
     }

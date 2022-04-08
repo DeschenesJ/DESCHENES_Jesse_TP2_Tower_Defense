@@ -15,14 +15,15 @@ public class Ennemies : MonoBehaviour, IDamageable
     protected NavMeshAgent agent;
     // Variable qui dit à l'ennemi est touché Je vais peut-être devoir le changer d'endroit
     protected bool degats = false;
-    //-----------------------------------
-    // Variable qui va servir a dire au gamemanager que le préfab de l'ennemi peut être détruit
-    public bool isRemovable;
     // Valeur de destination pour les ennemies qui va être caller par le gamemanager
     protected Transform destination;
+    //Valeur qui détermine si l'ennemi peux se remove
+    protected bool isDestroyalble;
 
     // Valeur qui va permettre de détecter l'ennemi
     protected Collider colliderEnnemi;
+
+    GameManager manager;
 
 
     // Start is called before the first frame update
@@ -36,11 +37,18 @@ public class Ennemies : MonoBehaviour, IDamageable
         ToggleRagdoll(false);
         // va chercher le collider de l'ennemi
         colliderEnnemi = GetComponent<Collider>();
-        isRemovable = false;
+        manager = FindObjectOfType<GameManager>();
         Setup();
 
 
     }
+
+    void Update()
+    {
+        if (manager.GameOver == true)
+            endOrIsDead();
+    }
+
 
     // méthode pour la destination des ennemies qui est caller
     public void SetTarget(Transform endDestination)
@@ -81,11 +89,12 @@ public class Ennemies : MonoBehaviour, IDamageable
             // Méthode qui va servie pour le ragdoll de l'ennemi
             ToggleRagdoll(true);
             // Active Particules pour mort
-
-            isRemovable = true;
+            Destroy(this.gameObject);
 
 
         }
+        else
+            Destroy(this.gameObject);
     }
 
 

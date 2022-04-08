@@ -17,9 +17,11 @@ public class GameManager : MonoBehaviour
     // Warrok
     public GameObject ennemiW;
     // Pv du joueur
-    protected int pvJoueur;
-
+    int pvJoueur;
     public int PvJoueur { get { return pvJoueur; } set { pvJoueur = value; } }
+    // Valeur pour lorsque la partie est fini
+    bool gameOver ;
+    public bool GameOver { get { return gameOver; } set { gameOver = value; } }
     // Valeurs de test pour le while
     int x;
     //------------------------------
@@ -32,7 +34,8 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         x = 0;
-        pvJoueur = 6;
+        pvJoueur = 1;
+        gameOver = false;
         // Commence la coroutine pour faire apparaitre la vague
         StartCoroutine(Spawner());
 
@@ -44,7 +47,7 @@ public class GameManager : MonoBehaviour
     {
         //  Va stopper la coroutine une fois les pv du joueur à 0
         if (pvJoueur == 0)
-            GameOver();
+            theGameisOver();
     }
 
     // Methode qui va faire apparaitre les ennemis
@@ -78,10 +81,13 @@ public class GameManager : MonoBehaviour
         ennemies.SetTarget(endPoint);
     }
 
-    void GameOver()
+    void theGameisOver()
     {
         StopAllCoroutines();
-        //Destroy(FindObjectOfType<Ennemies>());
+        gameOver = true;
+
+
+        
     
     
     }
