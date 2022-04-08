@@ -13,11 +13,12 @@ public class Ennemies : MonoBehaviour, IDamageable
     protected int pvEnnemi;
     // Le navMesh pour l'ennemi
     protected NavMeshAgent agent;
-    // Variable qui va dire au Gamemanager que l'ennemi est mort
-    protected bool Mort = false;
     // Variable qui dit à l'ennemi est touché Je vais peut-être devoir le changer d'endroit
     protected bool degats = false;
-
+    // Variable qui va servir a dire au gamemanager que le préfab de l'ennemi peut être détruit
+    public bool isRemovable;
+    // Variable qui va indiquée au gamemanager que l'ennemi est arriver à destination
+    public bool reachTarget;
     // Valeur de destination pour les ennemies qui va être caller par le gamemanager
     protected Transform destination;
 
@@ -36,6 +37,7 @@ public class Ennemies : MonoBehaviour, IDamageable
         ToggleRagdoll(false);
         // va chercher le collider de l'ennemi
         colliderEnnemi = GetComponent<Collider>();
+        isRemovable = false;
         Setup();
 
 
@@ -58,7 +60,6 @@ public class Ennemies : MonoBehaviour, IDamageable
         destination = endDestination;
 
         agent.SetDestination(destination.position);
-
     }
 
     public void TakeDamage(bool Degats)
@@ -75,21 +76,27 @@ public class Ennemies : MonoBehaviour, IDamageable
         }
         else
             // Lorsque l'ennemie n'a plus de PV, il meurt
-            die();
+            endOrIsDead();
     }
     // Ce qui ce produit lorsque l'ennemi meurt
-    public void die()
+    public void endOrIsDead()
     {
-        // Active le Ragdoll
-        ToggleRagdoll(true);
+        // Active le Ragdoll si l'ennmei n'a plus de pv
+        if (pvEnnemi <= 0)
+        {
+            // Active l'audio de mort
 
-        // Active l'audio
+            // Méthode qui va servie pour le ragdoll de l'ennemi
+            ToggleRagdoll(true);
+            // Active Particules pour mort
 
+            isRemovable = true;
 
-        // Active Particules pour mort
-
+        }
+        else
+            reachTarget = true;
+            isRemovable = true;
     }
-
 
 
     protected void ToggleRagdoll(bool value)
@@ -106,14 +113,14 @@ public class Ennemies : MonoBehaviour, IDamageable
 
     protected virtual void Setup()
     {
+        // Détermine les pv de l'ennemi
         pvEnnemi = 4;
-
-
+        // Détermine la valeur de l'ennemi
 
 
     }
 
-
+    
 
 
 

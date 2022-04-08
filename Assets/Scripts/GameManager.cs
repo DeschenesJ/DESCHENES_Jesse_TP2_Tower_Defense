@@ -31,8 +31,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //StartCoroutine(Spawner());
-
+        // Vérifie si un ennemi est mor ou s'il est arrivé à destination
+        EnnemiCheck();
 
     }
 
@@ -69,8 +69,17 @@ public class GameManager : MonoBehaviour
     }
     void EnnemiSpawn(GameObject ennemiType)
     {
+        // fait apparaitre un préfab de l'ennemi désiré
         GameObject objEnnemi = Instantiate(ennemiType, spawnpoint.position, Quaternion.Euler(180f, 0f, 0f)).gameObject;
+        // détermine la cible de l'ennemi
         objEnnemi.GetComponent<Ennemies>().SetTarget(endPoint);
+
+    }
+
+    void EnnemiCheck()
+    { 
+        
+    
     }
 
 }
