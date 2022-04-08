@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         x = 0;
         pvJoueur = 1;
+        // le je n'est pas terminé au commencement de la partie alors la variable est à false
         gameOver = false;
         // Commence la coroutine pour faire apparaitre la vague
         StartCoroutine(Spawner());
@@ -72,6 +73,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
+    // Méthode pour faire apparaître les types d'ennemis
     void EnnemiSpawn(GameObject ennemiType)
     {
         // fait apparaitre un préfab de l'ennemi désiré
@@ -81,6 +83,7 @@ public class GameManager : MonoBehaviour
         ennemies.SetTarget(endPoint);
     }
 
+    // va déterminer si la partie est terminée
     void theGameisOver()
     {
         StopAllCoroutines();

@@ -23,6 +23,7 @@ public class Ennemies : MonoBehaviour, IDamageable
     // Valeur qui va permettre de détecter l'ennemi
     protected Collider colliderEnnemi;
 
+    // Va servir pour appeler le GameManager
     GameManager manager;
 
 
@@ -37,6 +38,8 @@ public class Ennemies : MonoBehaviour, IDamageable
         ToggleRagdoll(false);
         // va chercher le collider de l'ennemi
         colliderEnnemi = GetComponent<Collider>();
+
+        // Appel le GameManager
         manager = FindObjectOfType<GameManager>();
         Setup();
 
@@ -90,11 +93,17 @@ public class Ennemies : MonoBehaviour, IDamageable
             ToggleRagdoll(true);
             // Active Particules pour mort
             Destroy(this.gameObject);
+            // Juste au cas ou il y aurait un erreur et que la variable GameOver serait true
+            if(manager.GameOver == true)
+                manager.GameOver = false;
 
 
         }
         else
+        {
             Destroy(this.gameObject);
+            manager.GameOver = false;
+        }
     }
 
 
