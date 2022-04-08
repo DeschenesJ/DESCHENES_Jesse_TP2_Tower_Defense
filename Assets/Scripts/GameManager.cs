@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     // Pv du joueur
     protected int pvJoueur;
 
+    public int PvJoueur { get { return pvJoueur; } set { pvJoueur = value; } }
     // Valeurs de test pour le while
     int x;
     //------------------------------
@@ -41,14 +42,15 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-
+        //  Va stopper la coroutine une fois les pv du joueur à 0
+        if (pvJoueur == 0)
+            GameOver();
     }
 
     // Methode qui va faire apparaitre les ennemis
     IEnumerator Spawner()
     {
-        while (x < 2)
+        while (true)
         {
             // Attendre un léger interval avant de le faire spawn
             yield return new WaitForSeconds(spawnInterval);
@@ -74,6 +76,14 @@ public class GameManager : MonoBehaviour
         // détermine la cible de l'ennemi
         Ennemies ennemies = objEnnemi.GetComponent<Ennemies>();
         ennemies.SetTarget(endPoint);
+    }
+
+    void GameOver()
+    {
+        StopAllCoroutines();
+        //Destroy(FindObjectOfType<Ennemies>());
+    
+    
     }
 
 }

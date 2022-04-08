@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestinationReached : GameManager
+public class DestinationReached : MonoBehaviour
 {
     
     //détermine si un Ennemi entre en contact avec lui
@@ -12,8 +12,11 @@ public class DestinationReached : GameManager
         { 
             other.GetComponent<Ennemies>().isRemovable = true;
             Destroy(other.gameObject);
-            pvJoueur--;
-            Debug.Log(pvJoueur);
+            GameManager manager = FindObjectOfType<GameManager>();
+            manager.PvJoueur--;
+            // pvJoueur--;
+            // Debug.Log(pvJoueur);
+            Debug.Log(manager.PvJoueur);
         }
     }
 
