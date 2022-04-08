@@ -16,14 +16,11 @@ public class GameManager : MonoBehaviour
     public GameObject ennemiN;
     // Warrok
     public GameObject ennemiW;
-
-    int pvJoueur;
-
-    public int PvJoueur { set { value = pvJoueur = 6; } }
+    // Pv du joueur
+    protected int pvJoueur;
 
     // Valeurs de test pour le while
     int x;
-    bool listFull;
     //------------------------------
 
     // va être modifié dans une coroutine qui va déterminer le nombre de round
@@ -34,7 +31,7 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         x = 0;
-        listFull = false;
+        pvJoueur = 6;
         // Commence la coroutine pour faire apparaitre la vague
         StartCoroutine(Spawner());
 
@@ -68,7 +65,6 @@ public class GameManager : MonoBehaviour
                 spawnInterval = 1f;
             x++;
         }
-        listFull = true;
 
     }
     void EnnemiSpawn(GameObject ennemiType)
