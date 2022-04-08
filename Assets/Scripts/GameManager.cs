@@ -16,8 +16,6 @@ public class GameManager : MonoBehaviour
     public GameObject ennemiN;
     // Warrok
     public GameObject ennemiW;
-    // Liste qui va contenir les ennemis
-    private List<GameObject> listEnnemies = new List<GameObject>();
 
     // Valeurs de test pour le while
     int x;
@@ -43,12 +41,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Vérifie si un ennemi est mor ou s'il est arrivé à destination
-        if (listEnnemies != null && listFull == true)
-        {
-            Debug.Log("liste pleine");
-            EnnemiCheck();
-        }
+        
 
     }
 
@@ -80,32 +73,8 @@ public class GameManager : MonoBehaviour
         // fait apparaitre un préfab de l'ennemi désiré
         GameObject objEnnemi = Instantiate(ennemiType, spawnpoint.position, Quaternion.Euler(180f, 0f, 0f)).gameObject;
         // détermine la cible de l'ennemi
-        objEnnemi.GetComponent<Ennemies>().SetTarget(endPoint);
-        listEnnemies.Add(objEnnemi);
-    }
-
-    void EnnemiCheck()
-    {
-        x = 0;
-        foreach (GameObject ob in listEnnemies)
-        {
-            if (ob.GetComponent<Ennemies>().isRemovable == true && ob.GetComponent<Ennemies>().reachTarget == true)
-            {
-                // test
-                Debug.Log("is dead");
-
-            }
-            else if (ob.GetComponent<Ennemies>().isRemovable == true && ob.GetComponent<Ennemies>().reachTarget == false)
-            {
-
-                Destroy(ob);
-                listEnnemies.Remove(ob);
-                Debug.Log("help mah");
-                break;
-            }
-            x++;
-        }
-    
+        Ennemies ennemies = objEnnemi.GetComponent<Ennemies>();
+        ennemies.SetTarget(endPoint);
     }
 
 }

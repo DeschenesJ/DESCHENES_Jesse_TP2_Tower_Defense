@@ -18,9 +18,6 @@ public class Ennemies : MonoBehaviour, IDamageable
     //-----------------------------------
     // Variable qui va servir a dire au gamemanager que le préfab de l'ennemi peut être détruit
     public bool isRemovable;
-    // Variable qui va indiquée au gamemanager que l'ennemi est arriver à destination
-    public bool reachTarget;
-    //-----------------------------------
     // Valeur de destination pour les ennemies qui va être caller par le gamemanager
     protected Transform destination;
 
@@ -42,13 +39,6 @@ public class Ennemies : MonoBehaviour, IDamageable
         isRemovable = false;
         Setup();
 
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
 
     }
 
@@ -94,10 +84,8 @@ public class Ennemies : MonoBehaviour, IDamageable
 
             isRemovable = true;
 
+
         }
-        else
-            reachTarget = true;
-            isRemovable = true;
     }
 
 

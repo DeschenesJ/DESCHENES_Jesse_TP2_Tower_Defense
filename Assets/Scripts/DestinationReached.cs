@@ -9,11 +9,10 @@ public class DestinationReached : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Ennemi"))
-            other.GetComponent<Ennemies>().isRemovable = true;
-        Debug.Log("Je vois un ennemi");
+        { other.GetComponent<Ennemies>().isRemovable = true;
+            Destroy(other.gameObject);
+        }
     }
-
-
 
 
 
