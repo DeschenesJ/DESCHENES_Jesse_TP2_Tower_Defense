@@ -23,7 +23,7 @@ public class Ennemies : MonoBehaviour, IDamageable
     // Valeur qui va permettre de détecter l'ennemi
     protected Collider colliderEnnemi;
 
-    // Va servir pour appeler le GameManager
+    // Va servir pour appeler le GameManager, n'est pas nécessaire, mais c'est toujours plus rapide que de faire FindObjectofType<GameObject> à chaque fois
     GameManager manager;
 
 

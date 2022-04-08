@@ -12,9 +12,9 @@ public class DestinationReached : MonoBehaviour
         { 
             other.GetComponent<Ennemies>();
             Destroy(other.gameObject);
+            // variable qui va chercher le GameManager
             GameManager manager = FindObjectOfType<GameManager>();
             manager.PvJoueur--;
-            Debug.Log(manager.PvJoueur);
         }
     }
 
