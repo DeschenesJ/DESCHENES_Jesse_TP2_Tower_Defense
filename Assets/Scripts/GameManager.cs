@@ -7,10 +7,11 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-
+    // le point d'apparition des ennemis
     public Transform spawnpoint;
+    // le point de la destination finale des ennemis
     public Transform endPoint;
-    // Squeulette
+    // Squelette
     public GameObject ennemiS;
     // Nightshade
     public GameObject ennemiN;
@@ -22,8 +23,17 @@ public class GameManager : MonoBehaviour
     // Valeur pour lorsque la partie est fini
     bool gameOver ;
     public bool GameOver { get { return gameOver; } set { gameOver = value; } }
-    // Valeurs de test pour le while
-    int x;
+    // Valeurs de référence pour faire apparaître les ennemis
+    // Squelette
+    int iEnnemiS;
+    // NightShade
+    int iEnnemiN;
+    // Warrok
+    int iEnnemiW;
+    //Valeur pour faire apparaitre les ennemis
+    int iSpawn;
+    // Variable pour indiquer le nombre de la vague
+    int iVague;
     //------------------------------
 
     // va être modifié dans une coroutine qui va déterminer le nombre de round
@@ -32,8 +42,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        iSpawn = 0;
+
         instance = this;
-        x = 0;
         pvJoueur = 1;
         // le je n'est pas terminé au commencement de la partie alors la variable est à false
         gameOver = false;
@@ -54,12 +65,23 @@ public class GameManager : MonoBehaviour
     // Methode qui va faire apparaitre les ennemis
     IEnumerator Spawner()
     {
-        while (true)
+        //iVague va être manuellement modifiée pour les besoins de test
+        iVague = 1;
+        iEnnemiS = 1 + iVague;
+        iEnnemiN = 1 + iVague - 1;
+        iEnnemiW = iVague - 1;
+        int iW = 0;
+
+        while (iW <= iEnnemiS + iEnnemiN + iEnnemiW)
         {
             // Attendre un léger interval avant de le faire spawn
             yield return new WaitForSeconds(spawnInterval);
             // Spawn des ennemis (je vais devoir faire une boucle selon la vague)            
-            EnnemiSpawn(ennemiS);
+            while (iSpawn <= iEnnemiS)
+            {
+                EnnemiSpawn(ennemiS);
+                // variable à ajouter
+            }
             yield return new WaitForSeconds(spawnInterval);
             EnnemiSpawn(ennemiN);
             yield return new WaitForSeconds(spawnInterval);
@@ -69,7 +91,7 @@ public class GameManager : MonoBehaviour
 
             if (spawnInterval < 1f)
                 spawnInterval = 1f;
-            x++;
+            
         }
 
     }
