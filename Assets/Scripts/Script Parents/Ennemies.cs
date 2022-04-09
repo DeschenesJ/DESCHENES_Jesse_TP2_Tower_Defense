@@ -44,17 +44,18 @@ public class Ennemies : MonoBehaviour, IDamageable
         // Appel le GameManager
         manager = FindObjectOfType<GameManager>();
         Setup();
-        
-
     }
 
     void Update()
     {
         if (manager.GameOver == true)
             endOrIsDead();
-        if (Input.GetButton("fire1"))
-        { 
-            
+        if (degats == true)
+        {
+            TakeDamage(degats);
+            degats = false;
+            if (pvEnnemi == 0)
+                endOrIsDead();
         }
     }
 
@@ -73,7 +74,6 @@ public class Ennemies : MonoBehaviour, IDamageable
 
     public void TakeDamage(bool Degats)
     {
-        Degats = degats;
         // Va déterminer si l'ennemi se prend des dégâts ou s'il meurt
         if (pvEnnemi > 0)
         {
@@ -97,13 +97,14 @@ public class Ennemies : MonoBehaviour, IDamageable
 
             // Méthode qui va servie pour le ragdoll de l'ennemi
             ToggleRagdoll(true);
-            // Active Particules pour mort
-            Destroy(this.gameObject, 2f);
             // Juste au cas ou il y aurait un erreur et que la variable GameOver serait true
-            if(manager.GameOver == true)
+            if (manager.GameOver == true)
                 manager.GameOver = false;
             // Variable dans le gamemanager qui augmente lorsque l'ennemi est mort
-            manager.IsKilled++;
+            manager.Killed += 1;
+            // Active Particules pour mort
+            Destroy(this.gameObject, 2f);
+            
         }
         else
         {
@@ -123,6 +124,9 @@ public class Ennemies : MonoBehaviour, IDamageable
 
         //Activer/desactiver l'Animator
         animator.enabled = !value;
+        //active/desactive le navmesh
+        agent.enabled = !value;
+
     }
 
     protected virtual void Setup()
@@ -134,6 +138,16 @@ public class Ennemies : MonoBehaviour, IDamageable
 
     }
 
+    // Méthode pour tester si lorsque l'ennemi meurt la round se termine
+    private void OnMouseDown()
+    {
+        if (Input.GetButton("Fire1"))
+        {
+            degats = true;
+        }
+        
+
+    }
 
 
 }

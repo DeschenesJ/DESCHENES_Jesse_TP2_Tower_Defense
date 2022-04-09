@@ -24,10 +24,10 @@ public class GameManager : MonoBehaviour
     bool gameOver ;
     public bool GameOver { get { return gameOver; } set { gameOver = value; } }
     // Valeur utilisé pour déterminer si tous les ennemis sont morts
-    int isDeadAll;
+    int deadAll;
     //valeur de l'ennemi lorsqu'il est mort et va être vérifiée avec isDeadAll pour les comparer
-    int isKilled;
-    public int IsKilled { get { return IsKilled ; } set { IsKilled = value ; } }
+    int killed;
+    public int Killed { get { return killed ; } set { killed = value ; } }
     // Valeurs de référence pour faire apparaître les ennemis ---
     // Squelette
     int iEnnemiS;
@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
         //  Va stopper la coroutine une fois les pv du joueur à 0
         if (pvJoueur == 0)
             theGameisOver();
-        if (isKilled == isDeadAll && isDeadAll != 0)
+        if (killed == deadAll && deadAll != 0)
             theGameisOver();
     }
 
@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
             iEnnemiW = 0;
         //---------------------------------
         // La quantité d'ennemi dans la variable qui détermine si tous les ennemis sont mort
-        isDeadAll = iEnnemiS + iEnnemiN + iEnnemiW;
+        deadAll = iEnnemiS + iEnnemiN + iEnnemiW;
         //Variable qui sert à arrêter la boucle while
         int iW = 0;
         //le délais entre chaque vague
@@ -130,8 +130,8 @@ public class GameManager : MonoBehaviour
         else // ce déclenche seulement si le joueur est encore en vie lorsque la méthode est appelée pour
              // commencer une nouvelle vague
         {
-            isDeadAll = 0;
-            isKilled = 0;
+            deadAll = 0;
+            killed = 0;
             StartCoroutine(Spawner());
         }
     }
