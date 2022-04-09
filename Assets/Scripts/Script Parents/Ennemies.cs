@@ -11,6 +11,8 @@ public class Ennemies : MonoBehaviour, IDamageable
     protected Animator animator;
     //valeur pour la vie de l'ennemi
     protected int pvEnnemi;
+    // valeur monétaire de l'ennemi
+    protected int ennemiGold;
     // Le navMesh pour l'ennemi
     protected NavMeshAgent agent;
     // Variable qui dit à l'ennemi est touché Je vais peut-être devoir le changer d'endroit
@@ -124,7 +126,8 @@ public class Ennemies : MonoBehaviour, IDamageable
         // Détermine les pv de l'ennemi
         pvEnnemi = 4;
         // Détermine la valeur de l'ennemi
-
+        ennemiGold = 50;
+        //
 
     }
 

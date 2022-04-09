@@ -30,28 +30,24 @@ public class GameManager : MonoBehaviour
     int iEnnemiN;
     // Warrok
     int iEnnemiW;
-    //Valeur pour faire apparaitre les ennemis
-    int iSpawn;
     // Variable pour indiquer le nombre de la vague
     int iVague;
     //------------------------------
 
-    // va être modifié dans une coroutine qui va déterminer le nombre de round
-    float spawnInterval = 5f;
+    // valeur fixe pour le temps entre les vaagues
+    float spawnVagueInterval = 20f;
+    // valeur fixe pour le délay entre chaque spawn d'ennemi
+    float spawnDelay = 1.5f;
 
     // Start is called before the first frame update
     void Start()
-    {
-        iSpawn = 0;
-
+    { 
         instance = this;
-        pvJoueur = 1;
+        pvJoueur = 6;
         // le je n'est pas terminé au commencement de la partie alors la variable est à false
         gameOver = false;
         // Commence la coroutine pour faire apparaitre la vague
         StartCoroutine(Spawner());
-
-        
     }
 
     // Update is called once per frame
@@ -65,32 +61,40 @@ public class GameManager : MonoBehaviour
     // Methode qui va faire apparaitre les ennemis
     IEnumerator Spawner()
     {
+        //le délais entre chaque vague
+        yield return new WaitForSeconds(spawnVagueInterval);
         //iVague va être manuellement modifiée pour les besoins de test
-        iVague = 1;
+        iVague = 3;
         iEnnemiS = 1 + iVague;
-        iEnnemiN = 1 + iVague - 1;
-        iEnnemiW = iVague - 1;
-        int iW = 0;
+        iEnnemiN = iVague - 1;
+        iEnnemiW = iVague - 2;
+        if (iEnnemiW <= 0)
+            iEnnemiW = 0;
 
-        while (iW <= iEnnemiS + iEnnemiN + iEnnemiW)
+        //Variable qui sert à arrêter la boucle while
+        int iW = 0;
+        while (iW < iEnnemiS + iEnnemiN + iEnnemiW)
         {
             // Attendre un léger interval avant de le faire spawn
-            yield return new WaitForSeconds(spawnInterval);
+            yield return new WaitForSeconds(1.5f);
             // Spawn des ennemis (je vais devoir faire une boucle selon la vague)            
-            while (iSpawn <= iEnnemiS)
+            for (int iSpawn = 0; iSpawn < iEnnemiS; iSpawn++, iW++)
             {
                 EnnemiSpawn(ennemiS);
-                // variable à ajouter
+                yield return new WaitForSeconds(spawnDelay);
             }
-            yield return new WaitForSeconds(spawnInterval);
-            EnnemiSpawn(ennemiN);
-            yield return new WaitForSeconds(spawnInterval);
-            EnnemiSpawn(ennemiW);
-
-            spawnInterval -= 0.25f;
-
-            if (spawnInterval < 1f)
-                spawnInterval = 1f;
+            //----------------
+            for (int iSpawn = 0; iSpawn < iEnnemiN; iSpawn++, iW++)
+            {
+                EnnemiSpawn(ennemiN);
+                yield return new WaitForSeconds(spawnDelay);
+            }
+            //----------------
+            for (int iSpawn = 0; iSpawn < iEnnemiW; iSpawn++, iW++)
+            {
+                EnnemiSpawn(ennemiW);
+                yield return new WaitForSeconds(spawnDelay);
+            }
             
         }
 
@@ -109,12 +113,14 @@ public class GameManager : MonoBehaviour
     void theGameisOver()
     {
         StopAllCoroutines();
-        gameOver = true;
-
-
-        
-    
-    
+        // La partie est terminé
+        if (pvJoueur == 0)
+            gameOver = true;
+        else // ce déclenche seulement si le joueur est encore en vie lorsque la méthode est appelée pour
+             // commencer une nouvelle vague
+        {
+            iVague++;
+            StartCoroutine(Spawner());
+        }
     }
-
 }
