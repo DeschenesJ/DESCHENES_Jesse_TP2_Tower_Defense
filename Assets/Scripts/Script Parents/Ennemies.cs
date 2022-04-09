@@ -13,14 +13,13 @@ public class Ennemies : MonoBehaviour, IDamageable
     protected int pvEnnemi;
     // valeur monétaire de l'ennemi
     protected int ennemiGold;
+    public int EnnemiGold { get { return ennemiGold; } }
     // Le navMesh pour l'ennemi
     protected NavMeshAgent agent;
     // Variable qui dit à l'ennemi est touché Je vais peut-être devoir le changer d'endroit
     protected bool degats = false;
     // Valeur de destination pour les ennemies qui va être caller par le gamemanager
     protected Transform destination;
-    //Valeur qui détermine si l'ennemi peux se remove
-    protected bool isDestroyalble;
 
     // Valeur qui va permettre de détecter l'ennemi
     protected Collider colliderEnnemi;
@@ -48,14 +47,16 @@ public class Ennemies : MonoBehaviour, IDamageable
 
     void Update()
     {
-        if (manager.GameOver == true)
-            endOrIsDead();
-        if (degats == true)
+        // Vérifie si la partie est terminé lorsque le joueur n'a plus de pv
+        if (manager.IsGameOver == true)
+            endOrDead();
+        // Vérifie si l'ennemi est touché et qu'il est viviant
+        if (degats == true && agent.enabled == true)
         {
             TakeDamage(degats);
             degats = false;
             if (pvEnnemi == 0)
-                endOrIsDead();
+                endOrDead();
         }
     }
 
@@ -85,10 +86,10 @@ public class Ennemies : MonoBehaviour, IDamageable
         }
         else
             // Lorsque l'ennemie n'a plus de PV, il meurt ou lorsqu'il est arrivé à destination, il disparait 
-            endOrIsDead();
+            endOrDead();
     }
-    // Ce qui ce produit lorsque l'ennemi meurt
-    public void endOrIsDead()
+    // Ce qui ce produit lorsque l'ennemi meurt ou si le joueur est mort
+    public void endOrDead()
     {
         // Active le Ragdoll si l'ennmei n'a plus de pv
         if (pvEnnemi <= 0)
@@ -97,9 +98,11 @@ public class Ennemies : MonoBehaviour, IDamageable
 
             // Méthode qui va servie pour le ragdoll de l'ennemi
             ToggleRagdoll(true);
+            // donne l'or au joueur
+            manager.GoldJoueur += ennemiGold;
             // Juste au cas ou il y aurait un erreur et que la variable GameOver serait true
-            if (manager.GameOver == true)
-                manager.GameOver = false;
+            if (manager.IsGameOver == true)
+                manager.IsGameOver = false;
             // Variable dans le gamemanager qui augmente lorsque l'ennemi est mort
             manager.Killed += 1;
             // Active Particules pour mort
@@ -109,7 +112,7 @@ public class Ennemies : MonoBehaviour, IDamageable
         else
         {
             Destroy(this.gameObject);
-            manager.GameOver = false;
+            manager.IsGameOver = false;
         }
     }
 
@@ -128,7 +131,7 @@ public class Ennemies : MonoBehaviour, IDamageable
         agent.enabled = !value;
 
     }
-
+    // Méthode virtual qui contient les valeurs des ennemis
     protected virtual void Setup()
     {
         // Détermine les pv de l'ennemi
@@ -145,9 +148,5 @@ public class Ennemies : MonoBehaviour, IDamageable
         {
             degats = true;
         }
-        
-
     }
-
-
 }

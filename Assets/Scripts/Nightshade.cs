@@ -26,7 +26,8 @@ public class Nightshade : Ennemies
 
     protected override void Setup()
     {
-        base.pvEnnemi = 2;
+        pvEnnemi = 2;
+        ennemiGold = 75;
     }
 
 

@@ -21,8 +21,12 @@ public class GameManager : MonoBehaviour
     int pvJoueur;
     public int PvJoueur { get { return pvJoueur; } set { pvJoueur = value; } }
     // Valeur qui permet de supprimer les prefab ennemis
-    bool gameOver ;
-    public bool GameOver { get { return gameOver; } set { gameOver = value; } }
+    bool isGameOver ;
+    public bool IsGameOver { get { return isGameOver; } set { isGameOver = value; } }
+    // Gold du joueur
+    int goldJoueur;
+
+    public int GoldJoueur { get { return goldJoueur; } set {goldJoueur = value ; } }
     // Valeur utilisé pour déterminer si tous les ennemis sont morts
     int deadAll;
     //valeur de l'ennemi lorsqu'il est mort et va être vérifiée avec isDeadAll pour les comparer
@@ -40,7 +44,7 @@ public class GameManager : MonoBehaviour
     //-----------------------------------------------------------
 
     // valeur fixe pour le temps entre les vaagues
-    float spawnVagueInterval = 20f;
+    float spawnVagueInterval = 5f;
     // valeur fixe pour le délay entre chaque spawn d'ennemi
     float spawnDelay = 1.5f;
 
@@ -49,8 +53,11 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         pvJoueur = 6;
+        // les golds de départs
+        goldJoueur = 100;
+
         // le je n'est pas terminé au commencement de la partie alors la variable est à false
-        gameOver = false;
+        isGameOver = false;
         // Commence la coroutine pour faire apparaitre la vague
         StartCoroutine(Spawner());
     }
@@ -126,7 +133,7 @@ public class GameManager : MonoBehaviour
         StopAllCoroutines();
         // La partie est terminé
         if (pvJoueur == 0)
-            gameOver = true;
+            isGameOver = true;
         else // ce déclenche seulement si le joueur est encore en vie lorsque la méthode est appelée pour
              // commencer une nouvelle vague
         {
