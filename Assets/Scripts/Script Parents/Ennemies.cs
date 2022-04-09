@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 
 public class Ennemies : MonoBehaviour, IDamageable
 {
+    // une des choses les plus débiles que j'ai jamais vu pour utiliser un nombre random
+    System.Random random = new System.Random();
     // valeur de référence pour les rigid bodies
     protected Rigidbody[] rbEnnemi;
     // valeur de référence pour l'animator
@@ -77,7 +80,7 @@ public class Ennemies : MonoBehaviour, IDamageable
         // Va déterminer si l'ennemi se prend des dégâts ou s'il meurt
         if (pvEnnemi > 0)
         {
-
+            int rScream = random.Next(1, 5);
             // lorsque l'ennemi est touché, il perd un pv
             pvEnnemi--;
             // Audio cri ennemi
@@ -139,7 +142,6 @@ public class Ennemies : MonoBehaviour, IDamageable
         ennemiGold = 50;
 
     }
-
     // Méthode pour tester si lorsque l'ennemi meurt la round se termine
     private void OnMouseDown()
     {

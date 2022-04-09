@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     //-----------------------------------------------------------
 
     // valeur fixe pour le temps entre les vaagues
-    float spawnVagueInterval = 15f;
+    float spawnVagueInterval = 10f;
     // valeur fixe pour le délay entre chaque spawn d'ennemi
     float spawnDelay = 2.5f;
 
@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
             for (int iSpawn = 0; iSpawn < iEnnemiW; iSpawn++, iW++)
             {
                 EnnemiSpawn(ennemiW);
-                yield return new WaitForSeconds(spawnDelay);
+                yield return new WaitForSeconds(spawnDelay -= 0.5f);
             }
             
         }
