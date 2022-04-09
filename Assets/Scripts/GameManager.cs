@@ -20,10 +20,15 @@ public class GameManager : MonoBehaviour
     // Pv du joueur
     int pvJoueur;
     public int PvJoueur { get { return pvJoueur; } set { pvJoueur = value; } }
-    // Valeur pour lorsque la partie est fini
+    // Valeur qui permet de supprimer les prefab ennemis
     bool gameOver ;
     public bool GameOver { get { return gameOver; } set { gameOver = value; } }
-    // Valeurs de référence pour faire apparaître les ennemis
+    // Valeur utilisé pour déterminer si tous les ennemis sont morts
+    int isDeadAll;
+    //valeur de l'ennemi lorsqu'il est mort et va être vérifiée avec isDeadAll pour les comparer
+    int isKilled;
+    public int IsKilled { get { return IsKilled ; } set { IsKilled = value ; } }
+    // Valeurs de référence pour faire apparaître les ennemis ---
     // Squelette
     int iEnnemiS;
     // NightShade
@@ -32,7 +37,7 @@ public class GameManager : MonoBehaviour
     int iEnnemiW;
     // Variable pour indiquer le nombre de la vague
     int iVague;
-    //------------------------------
+    //-----------------------------------------------------------
 
     // valeur fixe pour le temps entre les vaagues
     float spawnVagueInterval = 20f;
@@ -41,7 +46,7 @@ public class GameManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    { 
+    {
         instance = this;
         pvJoueur = 6;
         // le je n'est pas terminé au commencement de la partie alors la variable est à false
@@ -56,6 +61,8 @@ public class GameManager : MonoBehaviour
         //  Va stopper la coroutine une fois les pv du joueur à 0
         if (pvJoueur == 0)
             theGameisOver();
+        if (isKilled == isDeadAll && isDeadAll != 0)
+            theGameisOver();
     }
 
     // Methode qui va faire apparaitre les ennemis
@@ -63,8 +70,6 @@ public class GameManager : MonoBehaviour
     {
         //la valeiur de la vague
         iVague++;
-        //le délais entre chaque vague
-        yield return new WaitForSeconds(spawnVagueInterval);
         // le nombre de squelette par vague
         iEnnemiS = 1 + iVague;
         // le nombre de Nightshade par vague
@@ -74,9 +79,13 @@ public class GameManager : MonoBehaviour
         if (iEnnemiW <= 0)
             iEnnemiW = 0;
         //---------------------------------
-
+        // La quantité d'ennemi dans la variable qui détermine si tous les ennemis sont mort
+        isDeadAll = iEnnemiS + iEnnemiN + iEnnemiW;
         //Variable qui sert à arrêter la boucle while
         int iW = 0;
+        //le délais entre chaque vague
+        yield return new WaitForSeconds(spawnVagueInterval);
+        // Boucle qui va mettre les ennemis dans la vague
         while (iW < iEnnemiS + iEnnemiN + iEnnemiW)
         {
             // Spawn des ennemis (je vais devoir faire une boucle selon la vague)            
@@ -121,6 +130,8 @@ public class GameManager : MonoBehaviour
         else // ce déclenche seulement si le joueur est encore en vie lorsque la méthode est appelée pour
              // commencer une nouvelle vague
         {
+            isDeadAll = 0;
+            isKilled = 0;
             StartCoroutine(Spawner());
         }
     }

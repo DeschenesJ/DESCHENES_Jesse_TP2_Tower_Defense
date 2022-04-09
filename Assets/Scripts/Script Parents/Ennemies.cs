@@ -44,7 +44,7 @@ public class Ennemies : MonoBehaviour, IDamageable
         // Appel le GameManager
         manager = FindObjectOfType<GameManager>();
         Setup();
-
+        
 
     }
 
@@ -52,6 +52,10 @@ public class Ennemies : MonoBehaviour, IDamageable
     {
         if (manager.GameOver == true)
             endOrIsDead();
+        if (Input.GetButton("fire1"))
+        { 
+            
+        }
     }
 
 
@@ -94,12 +98,12 @@ public class Ennemies : MonoBehaviour, IDamageable
             // Méthode qui va servie pour le ragdoll de l'ennemi
             ToggleRagdoll(true);
             // Active Particules pour mort
-            Destroy(this.gameObject);
+            Destroy(this.gameObject, 2f);
             // Juste au cas ou il y aurait un erreur et que la variable GameOver serait true
             if(manager.GameOver == true)
                 manager.GameOver = false;
-
-
+            // Variable dans le gamemanager qui augmente lorsque l'ennemi est mort
+            manager.IsKilled++;
         }
         else
         {
@@ -127,7 +131,6 @@ public class Ennemies : MonoBehaviour, IDamageable
         pvEnnemi = 4;
         // Détermine la valeur de l'ennemi
         ennemiGold = 50;
-        //
 
     }
 
