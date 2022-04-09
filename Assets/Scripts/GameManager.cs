@@ -75,8 +75,6 @@ public class GameManager : MonoBehaviour
         int iW = 0;
         while (iW < iEnnemiS + iEnnemiN + iEnnemiW)
         {
-            // Attendre un léger interval avant de le faire spawn
-            yield return new WaitForSeconds(1.5f);
             // Spawn des ennemis (je vais devoir faire une boucle selon la vague)            
             for (int iSpawn = 0; iSpawn < iEnnemiS; iSpawn++, iW++)
             {
