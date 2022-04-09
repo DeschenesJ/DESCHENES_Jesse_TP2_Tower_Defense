@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    // Instance du gamemanager
     public static GameManager instance;
     // le point d'apparition des ennemis
     public Transform spawnpoint;
@@ -25,7 +26,6 @@ public class GameManager : MonoBehaviour
     public bool IsGameOver { get { return isGameOver; } set { isGameOver = value; } }
     // Gold du joueur
     int goldJoueur;
-
     public int GoldJoueur { get { return goldJoueur; } set {goldJoueur = value ; } }
     // Valeur utilisé pour déterminer si tous les ennemis sont morts
     int deadAll;
@@ -44,9 +44,9 @@ public class GameManager : MonoBehaviour
     //-----------------------------------------------------------
 
     // valeur fixe pour le temps entre les vaagues
-    float spawnVagueInterval = 5f;
+    float spawnVagueInterval = 15f;
     // valeur fixe pour le délay entre chaque spawn d'ennemi
-    float spawnDelay = 1.5f;
+    float spawnDelay = 2.5f;
 
     // Start is called before the first frame update
     void Start()

@@ -13,7 +13,6 @@ public class Ennemies : MonoBehaviour, IDamageable
     protected int pvEnnemi;
     // valeur monétaire de l'ennemi
     protected int ennemiGold;
-    public int EnnemiGold { get { return ennemiGold; } }
     // Le navMesh pour l'ennemi
     protected NavMeshAgent agent;
     // Variable qui dit à l'ennemi est touché Je vais peut-être devoir le changer d'endroit
