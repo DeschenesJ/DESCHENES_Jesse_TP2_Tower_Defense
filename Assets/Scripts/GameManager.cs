@@ -61,15 +61,19 @@ public class GameManager : MonoBehaviour
     // Methode qui va faire apparaitre les ennemis
     IEnumerator Spawner()
     {
+        //la valeiur de la vague
+        iVague++;
         //le délais entre chaque vague
         yield return new WaitForSeconds(spawnVagueInterval);
-        //iVague va être manuellement modifiée pour les besoins de test
-        iVague = 3;
+        // le nombre de squelette par vague
         iEnnemiS = 1 + iVague;
+        // le nombre de Nightshade par vague
         iEnnemiN = iVague - 1;
+        // le nommbre de Warrok par vague--
         iEnnemiW = iVague - 2;
         if (iEnnemiW <= 0)
             iEnnemiW = 0;
+        //---------------------------------
 
         //Variable qui sert à arrêter la boucle while
         int iW = 0;
@@ -117,7 +121,6 @@ public class GameManager : MonoBehaviour
         else // ce déclenche seulement si le joueur est encore en vie lorsque la méthode est appelée pour
              // commencer une nouvelle vague
         {
-            iVague++;
             StartCoroutine(Spawner());
         }
     }
