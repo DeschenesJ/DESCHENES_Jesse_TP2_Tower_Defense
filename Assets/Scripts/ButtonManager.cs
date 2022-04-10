@@ -6,29 +6,38 @@ public class ButtonManager : MonoBehaviour
 {
     BuildManager buildManager;
     GameManager manager;
-    public int money;
     void Start()
     {
-      //  money = Gamemanager.Money;
+
+        // Construit le manager pour la construction
         buildManager = BuildManager.instance;
+        manager = GetComponent<GameManager>();
+
     }
     public void GunTurretButton()
     {
-      //  if (money >= 1)
+       // if (manager.GoldJoueur >= 50)
+       // {
             buildManager.SetTurretToBuild(buildManager.GunTurret);
-         money-=50;
+          //  manager.GoldJoueur -= 50;
+       // }
     }
     public void FrostTurretButton()
     {
-       // if (money >= 3)
+       // if (manager.GoldJoueur >= 300)
+        //{
             buildManager.SetTurretToBuild(buildManager.FrostTurret);
+           // manager.GoldJoueur -= 300;
+       // }
     }
 
     public void CannonTurretButton()
     {
-     // if (money >=5)
-
-        buildManager.SetTurretToBuild(buildManager.CannonTurret);
+       // if (manager.GoldJoueur >= 500)
+       // { 
+            buildManager.SetTurretToBuild(buildManager.CannonTurret);
+         //   manager.GoldJoueur -= 500;
+       // }
 
     }
 
