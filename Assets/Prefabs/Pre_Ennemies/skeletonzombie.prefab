@@ -2402,6 +2402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dc1468e07caf409f955514b95a9adeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  criMort: {fileID: 8300000, guid: 7d7a94a1f55fd44d5926599a7b01dd49, type: 3}
 --- !u!136 &5944770717719656093
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -647,6 +647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf98c29d75e8148bba627a1f75c1b4e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  criMort: {fileID: 8300000, guid: c0d457ea27b974396b12e817bb0a8211, type: 3}
 --- !u!195 &2129435381702533397
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -6,6 +6,9 @@ using System;
 
 public class Ennemies : MonoBehaviour, IDamageable
 {
+    // l'Audio de l'ennemi
+    public AudioClip criMort;
+    AudioSource audioSource;
     // une des choses les plus débiles que j'ai jamais vu pour utiliser un nombre random
     System.Random random = new System.Random();
     // valeur de référence pour les rigid bodies
@@ -34,6 +37,9 @@ public class Ennemies : MonoBehaviour, IDamageable
     // Start is called before the first frame update
     void Start()
     {
+        //Va chercher le clip sonore
+        criMort = GetComponent<AudioClip>();
+        audioSource = GetComponent<AudioSource>();
         // va chercher les références des rigid bodies de l'ennemi
         rbEnnemi = GetComponentsInChildren<Rigidbody>();
         // va chercher la référence de l'animator de l'ennemi
@@ -109,6 +115,9 @@ public class Ennemies : MonoBehaviour, IDamageable
             // Variable dans le gamemanager qui augmente lorsque l'ennemi est mort
             manager.Killed += 1;
             manager.KillCount++;
+            // Active le son de mort
+            audioSource.PlayOneShot(criMort, 1.5f);
+
             // Active Particules pour mort
             Destroy(this.gameObject, 2f);
             
@@ -145,11 +154,11 @@ public class Ennemies : MonoBehaviour, IDamageable
 
     }
     // Méthode pour tester si lorsque l'ennemi meurt la round se termine
-    private void OnMouseDown()
-    {
-        if (Input.GetButton("Fire1"))
-        {
-            degats = true;
-        }
-    }
+    //private void OnMouseDown()
+    //{
+    //    if (Input.GetButton("Fire1"))
+    //    {
+    //        degats = true;
+    //    }
+    //}
 }
