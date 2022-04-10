@@ -15,6 +15,7 @@ public class DestinationReached : MonoBehaviour
             // variable qui va chercher le GameManager
             GameManager manager = FindObjectOfType<GameManager>();
             manager.PvJoueur--;
+            manager.Killed++;
         }
     }
 

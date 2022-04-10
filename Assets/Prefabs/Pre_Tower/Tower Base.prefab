@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8934796634031429567}
   - component: {fileID: 5499209220706506778}
   - component: {fileID: 7761367847675325648}
+  - component: {fileID: 373591426802864695}
+  - component: {fileID: 8172018745594486988}
   m_Layer: 0
   m_Name: Tower Base
   m_TagString: Untagged
@@ -83,3 +85,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &373591426802864695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8121422378098806021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a7e18f53b6c9e249be33d1238dca26a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HoverColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!135 &8172018745594486988
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8121422378098806021}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.720951
+  m_Center: {x: -0.0000022649765, y: 0.0000001788139, z: 0.6019672}

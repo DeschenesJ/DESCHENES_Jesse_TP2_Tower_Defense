@@ -19,7 +19,8 @@ public class Ennemies : MonoBehaviour, IDamageable
     // Le navMesh pour l'ennemi
     protected NavMeshAgent agent;
     // Variable qui dit à l'ennemi est touché Je vais peut-être devoir le changer d'endroit
-    protected bool degats = false;
+    protected bool degats;
+    public bool Degats { get { return degats; } set { degats = value; } }
     // Valeur de destination pour les ennemies qui va être caller par le gamemanager
     protected Transform destination;
 
@@ -107,6 +108,7 @@ public class Ennemies : MonoBehaviour, IDamageable
                 manager.IsGameOver = false;
             // Variable dans le gamemanager qui augmente lorsque l'ennemi est mort
             manager.Killed += 1;
+            manager.KillCount++;
             // Active Particules pour mort
             Destroy(this.gameObject, 2f);
             

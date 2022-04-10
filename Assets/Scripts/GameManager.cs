@@ -22,16 +22,20 @@ public class GameManager : MonoBehaviour
     int pvJoueur;
     public int PvJoueur { get { return pvJoueur; } set { pvJoueur = value; } }
     // Valeur qui permet de supprimer les prefab ennemis
-    bool isGameOver ;
+    bool isGameOver;
     public bool IsGameOver { get { return isGameOver; } set { isGameOver = value; } }
     // Gold du joueur
     int goldJoueur;
-    public int GoldJoueur { get { return goldJoueur; } set {goldJoueur = value ; } }
+    public int GoldJoueur { get { return goldJoueur; } set { goldJoueur = value; } }
     // Valeur utilisé pour déterminer si tous les ennemis sont morts
     int deadAll;
     //valeur de l'ennemi lorsqu'il est mort et va être vérifiée avec isDeadAll pour les comparer
     int killed;
-    public int Killed { get { return killed ; } set { killed = value ; } }
+    public int Killed { get { return killed; } set { killed = value; } }
+
+    // valeur pour le killcount des ennemis qui va augmenter à chaque kill
+    int killCount;
+    public int KillCount { get { return killCount; } set { killCount = value; } }
     // Valeurs de référence pour faire apparaître les ennemis ---
     // Squelette
     int iEnnemiS;
@@ -41,12 +45,14 @@ public class GameManager : MonoBehaviour
     int iEnnemiW;
     // Variable pour indiquer le nombre de la vague
     int iVague;
+
+    public int IVague { get { return iVague; } set { iVague = value; } }
     //-----------------------------------------------------------
 
     // valeur fixe pour le temps entre les vaagues
     float spawnVagueInterval = 10f;
     // valeur fixe pour le délay entre chaque spawn d'ennemi
-    float spawnDelay = 2.5f;
+    float spawnDelay = 2f;
 
     // Start is called before the first frame update
     void Start()
@@ -70,6 +76,9 @@ public class GameManager : MonoBehaviour
             theGameisOver();
         if (killed == deadAll && deadAll != 0)
             theGameisOver();
+        // Valeur maximum de gold que le joueur peut avoir
+        if (goldJoueur > 5000)
+            goldJoueur = 5000;
     }
 
     // Methode qui va faire apparaitre les ennemis
@@ -111,7 +120,7 @@ public class GameManager : MonoBehaviour
             for (int iSpawn = 0; iSpawn < iEnnemiW; iSpawn++, iW++)
             {
                 EnnemiSpawn(ennemiW);
-                yield return new WaitForSeconds(spawnDelay -= 0.5f);
+                yield return new WaitForSeconds(spawnDelay + 0.5f);
             }
             
         }
